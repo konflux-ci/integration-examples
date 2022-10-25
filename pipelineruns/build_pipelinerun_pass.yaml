@@ -14,7 +14,7 @@ metadata:
 spec:
   pipelineRef:
     name: build-pipeline-pass
-    bundle: quay.io/kpavic/test-bundle:build-pipeline-pass
+    bundle: quay.io/redhat-appstudio/example-tekton-bundle:build-pipeline-pass
   params:
     - name: output-image
       value: "quay.io/redhat-appstudio/sample-image"

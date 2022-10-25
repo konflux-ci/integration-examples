@@ -7,21 +7,21 @@ spec:
     - name: task-success
       taskRef:
         name: test-output
-        bundle: quay.io/kpavic/test-bundle:test-output
+        bundle: quay.io/redhat-appstudio/example-tekton-bundle:test-output
       params:
         - name: RESULT
           value: SUCCESS
     - name: task-failure
       taskRef:
         name: test-output
-        bundle: quay.io/kpavic/test-bundle:test-output
+        bundle: quay.io/redhat-appstudio/example-tekton-bundle:test-output
       params:
         - name: RESULT
           value: FAILURE
     - name: task-skipped
       taskRef:
         name: test-output
-        bundle: quay.io/kpavic/test-bundle:test-output
+        bundle: quay.io/redhat-appstudio/example-tekton-bundle:test-output
       params:
         - name: RESULT
           value: SKIPPED
