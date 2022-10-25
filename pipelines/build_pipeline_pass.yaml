@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: build-pipeline-pass
+spec:
+  params:
+  - description: 'Fully Qualified Output Image'
+    name: output-image
+    type: string
+  - description: 'Image digest (optional)'
+    default: ""
+    name: image-digest
+    type: string
+  tasks:
+    - name: build-container
+      taskRef:
+        name: build-container
+        bundle: quay.io/kpavic/test-bundle:build-container
+      params:
+        - name: image-url
+          value: "$(params.output-image)"
+        - name: image-digest
+          value: "$(params.image-digest)"

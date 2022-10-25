@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: integration-pipeline-pass
+spec:
+  tasks:
+    - name: task-success
+      taskRef:
+        name: test-output
+        bundle: quay.io/kpavic/test-bundle:test-output
+      params:
+        - name: RESULT
+          value: SUCCESS
+    - name: task-success-2
+      taskRef:
+        name: test-output
+        bundle: quay.io/kpavic/test-bundle:test-output
+      params:
+        - name: RESULT
+          value: SUCCESS
+    - name: task-skipped
+      taskRef:
+        name: test-output
+        bundle: quay.io/kpavic/test-bundle:test-output
+      params:
+        - name: RESULT
+          value: SKIPPED

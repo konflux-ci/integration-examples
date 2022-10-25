@@ -1,0 +1,8 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Component
+metadata:
+  name: component-sample
+  namespace: default
+spec:
+  application: application-sample
+  componentName: component-sample

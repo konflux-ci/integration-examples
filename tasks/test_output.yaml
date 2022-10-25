@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: test-output
+spec:
+  results:
+    - name: HACBS_TEST_OUTPUT
+      description: Test output
+  params:
+    - default: "SUCCESS"
+      name: RESULT
+      description: Test result to be generated
+  steps:
+    - image: quay.io/redhat-appstudio/hacbs-test:stable
+      script: |
+        HACBS_TEST_OUTPUT=$(jq -rc --arg date $(date +%s) --arg RESULT $(params.RESULT) --null-input \
+          '{result: $RESULT, timestamp: $date, failures: [], successes: 0}')
+        echo "${HACBS_TEST_OUTPUT}" | tee $(results.HACBS_TEST_OUTPUT.path)

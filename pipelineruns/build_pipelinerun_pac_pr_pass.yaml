@@ -1,0 +1,35 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: build-pipelinerun-
+  annotations:
+    "appstudio.redhat.com/updateComponentOnSuccess": "false"
+    pipelinesascode.tekton.dev/repo-url: 'https://github.com/redhat-appstudio/build-service'
+    pipelinesascode.tekton.dev/sha-title: Initial pipelines-as-code integration
+    pipelinesascode.tekton.dev/pull-request: '40'
+    pipelinesascode.tekton.dev/sha-url: https://github.com/redhat-appstudio/build-service/commit/2065ecd636e8a999cfc78ab9f1aa0d6eadbe0962
+  labels:
+    pipelines.appstudio.openshift.io/type: "build"
+    pipelines.openshift.io/used-by: "build-cloud"
+    pipelines.openshift.io/runtime: "nodejs"
+    pipelines.openshift.io/strategy: "s2i"
+    build.appstudio.openshift.io/component: "component-sample"
+    pipelinesascode.tekton.dev/event-type: pull_request
+    pipelinesascode.tekton.dev/state: completed
+    pipelinesascode.tekton.dev/sender: Michkov
+    pipelinesascode.tekton.dev/check-run-id: '7111954526'
+    pipelinesascode.tekton.dev/branch: main
+    pipelinesascode.tekton.dev/url-org: redhat-appstudio
+    pipelinesascode.tekton.dev/original-prname: build-service-pull-request
+    pipelinesascode.tekton.dev/url-repository: build-service
+    pipelinesascode.tekton.dev/repository: build-service-pac
+    pipelinesascode.tekton.dev/sha: 2065ecd636e8a999cfc78ab9f1aa0d6eadbe0962
+    pipelinesascode.tekton.dev/git-provider: github
+spec:
+  pipelineRef:
+    name: build-pipeline-pass
+    bundle: quay.io/kpavic/test-bundle:build-pipeline-pass
+  params:
+    - name: output-image
+      value: "quay.io/redhat-appstudio/sample-image"

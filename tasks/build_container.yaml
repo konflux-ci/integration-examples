@@ -1,0 +1,24 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-container
+spec:
+  results:
+    - name: IMAGE_DIGEST
+      description: Image digest
+  params:
+    - default: "quay.io/redhat-appstudio/sample-image"
+      name: image-url
+      description: Image URL
+    - default: ""
+      name: image-digest
+      description: Image Digest (optional)
+  steps:
+    - image: quay.io/redhat-appstudio/hacbs-test:stable
+      script: |
+        if [ -z "$(params.image-digest)" ]; then
+          sha256=$(echo -n $RANDOM | sha256sum | head -c 64)
+          echo "sha256:${sha256}" | tee $(results.IMAGE_DIGEST.path)
+        else
+          echo "$(params.image-digest)" | tee $(results.IMAGE_DIGEST.path)
+        fi
