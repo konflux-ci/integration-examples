@@ -14,5 +14,5 @@ spec:
     - image: quay.io/redhat-appstudio/hacbs-test:stable
       script: |
         HACBS_TEST_OUTPUT=$(jq -rc --arg date $(date +%s) --arg RESULT $(params.RESULT) --null-input \
-          '{result: $RESULT, timestamp: $date, failures: [], successes: 0}')
+          '{result: $RESULT, timestamp: $date, failures: 0, successes: 0}')
         echo "${HACBS_TEST_OUTPUT}" | tee $(results.HACBS_TEST_OUTPUT.path)
