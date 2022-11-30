@@ -15,9 +15,9 @@ metadata:
   labels:
     pipelines.appstudio.openshift.io/type: "test"
     test.appstudio.openshift.io/test: "component"
-    test.appstudio.openshift.io/snapshot: "snapshot-sample"
-    test.appstudio.openshift.io/component: "component-sample"
-    test.appstudio.openshift.io/application: "application-sample"
+    appstudio.openshift.io/snapshot: "snapshot-sample"
+    appstudio.openshift.io/component: "component-sample"
+    appstudio.openshift.io/application: "application-sample"
     test.appstudio.openshift.io/scenario: "integrationtestscenario-sample1"
     pipelinesascode.tekton.dev/event-type: push
     pipelinesascode.tekton.dev/state: completed

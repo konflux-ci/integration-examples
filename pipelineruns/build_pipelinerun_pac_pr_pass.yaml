@@ -14,7 +14,7 @@ metadata:
     pipelines.openshift.io/used-by: "build-cloud"
     pipelines.openshift.io/runtime: "nodejs"
     pipelines.openshift.io/strategy: "s2i"
-    build.appstudio.openshift.io/component: "component-sample"
+    appstudio.openshift.io/component: "component-sample"
     pipelinesascode.tekton.dev/event-type: pull_request
     pipelinesascode.tekton.dev/state: completed
     pipelinesascode.tekton.dev/sender: Michkov
