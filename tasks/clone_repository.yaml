@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: clone-repository
+spec:
+  results:
+    - description: The precise commit SHA that was fetched by this Task.
+      name: commit
+    - description: The precise URL that was fetched by this Task.
+      name: url
+  params:
+    - default: "git@github.com:redhat-appstudio/integration-service.git"
+      name: url
+      description: Git URL
+    - default: ""
+      name: commit
+      description: Commit SHA
+  steps:
+    - image: quay.io/redhat-appstudio/hacbs-test:stable
+      script: |
+        echo "$(params.url)" | tee $(results.url.path)
+        if [ -z "$(params.commit)" ]; then
+          sha256=$(echo -n $RANDOM | sha256sum | head -c 64)
+          echo "sha256:${sha256}" | tee $(results.commit.path)
+        else
+          echo "$(params.commit)" | tee $(results.commit.path)
+        fi

@@ -11,6 +11,15 @@ spec:
     default: ""
     name: image-digest
     type: string
+  results:
+    - name: IMAGE_URL
+      value: "$(tasks.build-container.results.IMAGE_URL)"
+    - name: IMAGE_DIGEST
+      value: "$(tasks.build-container.results.IMAGE_DIGEST)"
+    - name: CHAINS-GIT_URL
+      value: "$(tasks.clone-repository.results.url)"
+    - name: CHAINS-GIT_COMMIT
+      value: "$(tasks.clone-repository.results.commit)"
   tasks:
     - name: build-container
       taskRef:
@@ -21,3 +30,7 @@ spec:
           value: "$(params.output-image)"
         - name: image-digest
           value: "$(params.image-digest)"
+    - name: clone-repository
+      taskRef:
+        name: clone-repository
+        bundle: quay.io/redhat-appstudio/example-tekton-bundle:clone-repository

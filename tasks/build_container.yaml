@@ -4,8 +4,10 @@ metadata:
   name: build-container
 spec:
   results:
-    - name: IMAGE_DIGEST
-      description: Image digest
+    - description: Image digest
+      name: IMAGE_DIGEST
+    - description: Image repository where the built image was pushed
+      name: IMAGE_URL
   params:
     - default: "quay.io/redhat-appstudio/sample-image"
       name: image-url
@@ -16,6 +18,7 @@ spec:
   steps:
     - image: quay.io/redhat-appstudio/hacbs-test:stable
       script: |
+        echo "$(params.image-url)" | tee $(results.IMAGE_URL.path)
         if [ -z "$(params.image-digest)" ]; then
           sha256=$(echo -n $RANDOM | sha256sum | head -c 64)
           echo "sha256:${sha256}" | tee $(results.IMAGE_DIGEST.path)
