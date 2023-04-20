@@ -1,0 +1,45 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: integration-resolver-pipeline-pass
+spec:
+  tasks:
+    - name: task-success
+      taskRef:
+        resolver: git
+        params:
+          - name: url
+            value: https://github.com/redhat-appstudio/integration-examples 
+          - name: revision
+            value: main
+          - name: pathInRepo
+            value: tasks/test_output.yaml
+      params:
+        - name: RESULT
+          value: SUCCESS
+    - name: task-success-2
+      taskRef:
+        resolver: git
+        params:
+          - name: url
+            value: https://github.com/redhat-appstudio/integration-examples 
+          - name: revision
+            value: main
+          - name: pathInRepo
+            value: tasks/test_output.yaml
+      params:
+        - name: RESULT
+          value: SUCCESS
+    - name: task-skipped
+      taskRef:
+        resolver: git
+        params:
+          - name: url
+            value: https://github.com/redhat-appstudio/integration-examples 
+          - name: revision
+            value: main
+          - name: pathInRepo
+            value: tasks/test_output.yaml
+      params:
+        - name: RESULT
+          value: SKIPPED
