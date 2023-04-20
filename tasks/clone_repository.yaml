@@ -21,7 +21,7 @@ spec:
         echo "$(params.url)" | tee $(results.url.path)
         if [ -z "$(params.commit)" ]; then
           sha256=$(echo -n $RANDOM | sha256sum | head -c 64)
-          echo "sha256:${sha256}" | tee $(results.commit.path)
+          echo -n "sha256:${sha256}" | tee $(results.commit.path)
         else
-          echo "$(params.commit)" | tee $(results.commit.path)
+          echo -n "$(params.commit)" | tee $(results.commit.path)
         fi
