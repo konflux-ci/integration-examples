@@ -18,10 +18,10 @@ spec:
   steps:
     - image: quay.io/redhat-appstudio/hacbs-test:stable
       script: |
-        echo "$(params.image-url)" | tee $(results.IMAGE_URL.path)
+        echo -n "$(params.image-url)" | tee $(results.IMAGE_URL.path)
         if [ -z "$(params.image-digest)" ]; then
           sha256=$(echo -n $RANDOM | sha256sum | head -c 64)
-          echo "sha256:${sha256}" | tee $(results.IMAGE_DIGEST.path)
+          echo -n "sha256:${sha256}" | tee $(results.IMAGE_DIGEST.path)
         else
-          echo "$(params.image-digest)" | tee $(results.IMAGE_DIGEST.path)
+          echo -n "$(params.image-digest)" | tee $(results.IMAGE_DIGEST.path)
         fi
