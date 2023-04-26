@@ -1,0 +1,20 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: integration-pipelinerun-
+  labels:
+    pipelines.appstudio.openshift.io/type: "test"
+    test.appstudio.openshift.io/test: "component"
+    appstudio.openshift.io/snapshot: "snapshot-sample"
+    appstudio.openshift.io/component: "component-sample"
+    appstudio.openshift.io/application: "application-sample"
+    test.appstudio.openshift.io/scenario: "integrationtestscenario-sample1"
+spec:
+  pipelineRef:
+    name: integration-test-app
+    bundle: quay.io/redhat-appstudio/example-tekton-bundle:integration-test-app
+  workspaces:
+    - name: cluster-credentials
+      secret:
+        secretName: cluster-credentials-secret
