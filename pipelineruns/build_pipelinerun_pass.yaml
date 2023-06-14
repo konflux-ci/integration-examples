@@ -5,6 +5,7 @@ metadata:
   generateName: build-pipelinerun-
   annotations:
     "appstudio.redhat.com/updateComponentOnSuccess": "false"
+    chains.tekton.dev/signed: "true"
   labels:
     pipelines.appstudio.openshift.io/type: "build"
     pipelines.openshift.io/used-by: "build-cloud"
