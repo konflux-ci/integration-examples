@@ -13,6 +13,7 @@ metadata:
     pipelinesascode.tekton.dev/sha-url: https://github.com/redhat-appstudio/build-service/commit/f13b881e3404ad3401fa7b533df3f7daddd11b55
     pipelinesascode.tekton.dev/on-event: '[push]'
     pipelinesascode.tekton.dev/installation-id: '23331085'
+    chains.tekton.dev/signed: "true"
   labels:
     pipelines.appstudio.openshift.io/type: "build"
     pipelines.openshift.io/used-by: "build-cloud"

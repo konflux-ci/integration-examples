@@ -9,6 +9,7 @@ metadata:
     pipelinesascode.tekton.dev/sha-title: Initial pipelines-as-code integration
     pipelinesascode.tekton.dev/pull-request: '40'
     pipelinesascode.tekton.dev/sha-url: https://github.com/redhat-appstudio/build-service/commit/2065ecd636e8a999cfc78ab9f1aa0d6eadbe0962
+    chains.tekton.dev/signed: "true"
   labels:
     pipelines.appstudio.openshift.io/type: "build"
     pipelines.openshift.io/used-by: "build-cloud"
