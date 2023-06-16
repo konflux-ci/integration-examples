@@ -20,4 +20,4 @@ spec:
     - name: output-image
       value: "quay.io/redhat-appstudio/sample-image"
     - name: image-digest
-      value: "sha256:43326f83b9aa7db155508826315ba87043ab6087e17f36c860eda0076230b20c"
+      value: "sha256:33d9e33ecc2a2910f967fc2e95f8a64872e9d1e31d00f763a442a8866b391b6c"
