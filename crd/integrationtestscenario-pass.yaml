@@ -1,9 +1,26 @@
 apiVersion: appstudio.redhat.com/v1alpha1
 kind: IntegrationTestScenario
 metadata:
-  name: example-pass
+  name: example-int-pass-yes
   namespace: default
 spec:
   application: application-sample
-  bundle: 'quay.io/redhat-appstudio/example-tekton-bundle:integration-pipeline-pass'
+  bundle: "quay.io/redhat-appstudio/example-tekton-bundle:integration-pipeline-pass"
   pipeline: integration-pipeline-pass
+  environment:
+    name: "my_env"
+    type: "POC"
+    configuration:
+      env:
+        - name: HOME
+          value: "/home"
+  params:
+    - name: "something"
+      value: "next"
+    - name: "name"
+      value: "foo"
+  contexts:
+    - name: "place_one"
+      description: "apply my context there"
+    - name: "place_two"
+      description: "apply also there"

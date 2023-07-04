@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: bundle-demo
+spec:
+  pipelineRef:
+    resolver: bundles
+    params:
+    - name: bundle
+      value: quay.io/redhat-appstudio/example-tekton-bundle:integration-pipeline-pass
+    - name: name
+      value: integration-pipeline-pass
+    - name: kind
+      value: pipeline
+  params:
+  - name: username
+    value: "tekton pipelines"

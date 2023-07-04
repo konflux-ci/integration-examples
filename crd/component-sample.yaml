@@ -4,7 +4,7 @@ metadata:
   name: component-sample
   namespace: default
 spec:
-  application: application-sample
+  application: my-app
   componentName: component-sample
   source:
     git:
