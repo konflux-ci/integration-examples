@@ -2,9 +2,8 @@ apiVersion: appstudio.redhat.com/v1alpha1
 kind: IntegrationTestScenario
 metadata:
   name: example-test-app
-  namespace: default
 spec:
-  application: test-application
+  application: application-sample
   bundle: 'quay.io/redhat-appstudio/example-tekton-bundle:integration-test-app'
   pipeline: integration-test-app
   environment:
