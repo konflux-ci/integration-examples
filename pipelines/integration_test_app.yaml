@@ -27,14 +27,14 @@ spec:
   tasks:
     - name: test-app-endpoint
       taskRef:
-        resolver: bundles
+        resolver: git
         params:
-          - name: bundle
-            value: quay.io/redhat-appstudio/example-tekton-bundle:test-app-endpoint
-          - name: name
-            value: test-app-endpoint
-          - name: kind
-            value: task
+          - name: url
+            value: https://github.com/redhat-appstudio/integration-examples
+          - name: revision
+            value: main
+          - name: pathInRepo
+            value: tasks/test_app_endpoint.yaml
       params:
         - name: SNAPSHOT
           value: $(params.SNAPSHOT)

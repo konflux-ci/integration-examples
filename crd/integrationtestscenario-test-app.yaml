@@ -4,11 +4,21 @@ metadata:
   name: example-test-app
 spec:
   application: application-sample
-  bundle: 'quay.io/redhat-appstudio/example-tekton-bundle:integration-test-app'
-  pipeline: integration-test-app
+  contexts:
+    - description: Application testing
+      name: application
   environment:
-    name: development
-    type: POC
     configuration:
       env: []
+    name: development
+    type: Non-POC
+  resolverRef:
+    resolver: git
+    params:
+      - name: url
+        value: https://github.com/redhat-appstudio/integration-examples
+      - name: revision
+        value: main
+      - name: pathInRepo
+        value: pipelines/integration_test_app.yaml
 
