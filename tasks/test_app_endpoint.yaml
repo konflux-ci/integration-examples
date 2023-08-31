@@ -37,8 +37,11 @@ spec:
         
         # Get the route for the application endpoint
         COMPONENT_NAME=$(echo -n ${SNAPSHOT} | jq -r .components[0].name)
-        ROUTE_NAME=$(oc get routes -l app.kubernetes.io/name="${COMPONENT_NAME}" -o name)
-        HOST=$(oc get "${ROUTE_NAME}" -o jsonpath={.spec.host} -n "${NAMESPACE}")
+        # The --insecure-skip-tls-verify option is added for local testing
+        # when the clusters only have self-signed certificates. 
+        # This option should not be used in production.
+        ROUTE_NAME=$(oc get routes -l app.kubernetes.io/name="${COMPONENT_NAME}" -o name --insecure-skip-tls-verify)
+        HOST=$(oc get "${ROUTE_NAME}" -o jsonpath={.spec.host} -n "${NAMESPACE}" --insecure-skip-tls-verify)
         echo "Found target host ${HOST} for app ${APPLICATION_NAME}"
         
         # Check the application endpoint
