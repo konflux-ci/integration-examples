@@ -44,16 +44,22 @@ spec:
         HOST=$(oc get "${ROUTE_NAME}" -o jsonpath={.spec.host} -n "${NAMESPACE}" --insecure-skip-tls-verify)
         echo "Found target host ${HOST} for app ${APPLICATION_NAME}"
         
-        # Check the application endpoint
-        ENDPOINT_OUTPUT=$(curl -k https://${HOST}:${PORT})
+        # Wait up to 5 minutes for the endpoint output to match the expected output
+        for _ in $(seq 1 60); do 
+          # Check the application endpoint
+          ENDPOINT_OUTPUT=$(curl -k https://${HOST}:${PORT})
+        
+          if [[ "${ENDPOINT_OUTPUT}" == "${EXPECTED_OUTPUT}" ]]; then
+            RESULT="SUCCESS"
+            break
+          else
+            RESULT="FAILURE"
+          fi
+          sleep 5
+        done
+        
         echo -e "The endpoint outputs the following:\n ${ENDPOINT_OUTPUT}"
         echo -e "Expected endpoint output:\n ${EXPECTED_OUTPUT}"
-        
-        if [[ "${ENDPOINT_OUTPUT}" == "${EXPECTED_OUTPUT}" ]]; then
-          RESULT="SUCCESS"
-        else
-          RESULT="FAILURE"
-        fi
 
         TEST_OUTPUT=$(jq -rc --arg date $(date +%s) --arg RESULT "${RESULT}" --null-input \
           '{result: $RESULT, timestamp: $date, failures: 0, successes: 0, warnings: 0}')
