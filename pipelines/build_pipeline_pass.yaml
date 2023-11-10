@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: build-pipeline-pass
@@ -23,8 +23,14 @@ spec:
   tasks:
     - name: build-container
       taskRef:
-        name: build-container
-        bundle: quay.io/redhat-appstudio/example-tekton-bundle:build-container
+        resolver: bundles
+        params:
+          - name: bundle
+            value: quay.io/redhat-appstudio/example-tekton-bundle:build-container
+          - name: name
+            value: build-container
+          - name: kind
+            value: task
       params:
         - name: image-url
           value: "$(params.output-image)"
@@ -32,5 +38,11 @@ spec:
           value: "$(params.image-digest)"
     - name: clone-repository
       taskRef:
-        name: clone-repository
-        bundle: quay.io/redhat-appstudio/example-tekton-bundle:clone-repository
+        resolver: bundles
+        params:
+          - name: bundle
+            value: quay.io/redhat-appstudio/example-tekton-bundle:clone-repository
+          - name: name
+            value: clone-repository
+          - name: kind
+            value: task

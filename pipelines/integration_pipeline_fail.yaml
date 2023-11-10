@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
   name: integration-pipeline-fail
@@ -6,22 +6,40 @@ spec:
   tasks:
     - name: task-success
       taskRef:
-        name: test-output
-        bundle: quay.io/redhat-appstudio/example-tekton-bundle:test-output
+        resolver: bundles
+        params:
+          - name: bundle
+            value: quay.io/redhat-appstudio/example-tekton-bundle:test-output
+          - name: name
+            value: test-output
+          - name: kind
+            value: task
       params:
         - name: RESULT
           value: SUCCESS
     - name: task-failure
       taskRef:
-        name: test-output
-        bundle: quay.io/redhat-appstudio/example-tekton-bundle:test-output
+        resolver: bundles
+        params:
+          - name: bundle
+            value: quay.io/redhat-appstudio/example-tekton-bundle:test-output
+          - name: name
+            value: test-output
+          - name: kind
+            value: task
       params:
         - name: RESULT
           value: FAILURE
     - name: task-skipped
       taskRef:
-        name: test-output
-        bundle: quay.io/redhat-appstudio/example-tekton-bundle:test-output
+        resolver: bundles
+        params:
+          - name: bundle
+            value: quay.io/redhat-appstudio/example-tekton-bundle:test-output
+          - name: name
+            value: test-output
+          - name: kind
+            value: task
       params:
         - name: RESULT
           value: SKIPPED
