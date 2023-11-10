@@ -1,5 +1,5 @@
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
   generateName: integration-pipelinerun-
@@ -12,8 +12,14 @@ metadata:
     test.appstudio.openshift.io/scenario: "integrationtestscenario-sample1"
 spec:
   pipelineRef:
-    name: integration-test-app
-    bundle: quay.io/redhat-appstudio/example-tekton-bundle:integration-test-app
+    resolver: git
+    params:
+      - name: url
+        value: http://github.com/redhat-appstudio/integration-examples.git
+      - name: revision
+        value: main
+      - name: pathInRepo
+        value: pipelines/integration_test_app.yaml
   workspaces:
     - name: cluster-credentials
       secret:

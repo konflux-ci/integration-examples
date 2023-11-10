@@ -1,5 +1,5 @@
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
   generateName: build-pipelinerun-
@@ -14,8 +14,14 @@ metadata:
     appstudio.openshift.io/component: "component-sample"
 spec:
   pipelineRef:
-    name: build-pipeline-pass
-    bundle: quay.io/redhat-appstudio/example-tekton-bundle:build-pipeline-pass
+    resolver: bundles
+    params:
+      - name: bundle
+        value: quay.io/redhat-appstudio/example-tekton-bundle:build-pipeline-pass
+      - name: name
+        value: build-pipeline-pass
+      - name: kind
+        value: pipeline
   params:
     - name: output-image
       value: "quay.io/redhat-appstudio/sample-image"
