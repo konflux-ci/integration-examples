@@ -1,0 +1,16 @@
+apiVersion: appstudio.redhat.com/v1beta1
+kind: IntegrationTestScenario
+metadata:
+  name: example-invalid-output
+  namespace: default
+spec:
+  application: application-sample
+  resolverRef:
+    resolver: git
+    params:
+      - name: url
+        value: https://github.com/redhat-appstudio/integration-examples
+      - name: revision
+        value: main
+      - name: pathInRepo
+        value: pipelines/integration_pipeline_invalid.yaml

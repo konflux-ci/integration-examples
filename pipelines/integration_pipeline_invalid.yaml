@@ -1,0 +1,19 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: integration-pipeline-invalid-output
+spec:
+  tasks:
+    - name: task-invalid-output
+      taskRef:
+        resolver: bundles
+        params:
+          - name: bundle
+            value: quay.io/redhat-appstudio/example-tekton-bundle:test-output
+          - name: name
+            value: test-output
+          - name: kind
+            value: task
+      params:
+        - name: RESULT
+          value: "Unknown-invalid-value"
