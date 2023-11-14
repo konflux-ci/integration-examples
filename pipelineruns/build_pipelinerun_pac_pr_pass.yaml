@@ -5,10 +5,11 @@ metadata:
   generateName: build-pipelinerun-
   annotations:
     "appstudio.redhat.com/updateComponentOnSuccess": "false"
-    pipelinesascode.tekton.dev/repo-url: 'https://github.com/redhat-appstudio/build-service'
+    pipelinesascode.tekton.dev/installation-id: '43840620'
+    pipelinesascode.tekton.dev/repo-url:
     pipelinesascode.tekton.dev/sha-title: Initial pipelines-as-code integration
-    pipelinesascode.tekton.dev/pull-request: '40'
-    pipelinesascode.tekton.dev/sha-url: https://github.com/redhat-appstudio/build-service/commit/2065ecd636e8a999cfc78ab9f1aa0d6eadbe0962
+    pipelinesascode.tekton.dev/pull-request: 
+    pipelinesascode.tekton.dev/sha-url:
     chains.tekton.dev/signed: "true"
   labels:
     pipelines.appstudio.openshift.io/type: "build"
@@ -23,9 +24,9 @@ metadata:
     pipelinesascode.tekton.dev/branch: main
     pipelinesascode.tekton.dev/url-org: redhat-appstudio
     pipelinesascode.tekton.dev/original-prname: build-service-pull-request
-    pipelinesascode.tekton.dev/url-repository: build-service
-    pipelinesascode.tekton.dev/repository: build-service-pac
-    pipelinesascode.tekton.dev/sha: 2065ecd636e8a999cfc78ab9f1aa0d6eadbe0962
+    pipelinesascode.tekton.dev/url-repository:
+    pipelinesascode.tekton.dev/repository:
+    pipelinesascode.tekton.dev/sha:
     pipelinesascode.tekton.dev/git-provider: github
 spec:
   pipelineRef:
