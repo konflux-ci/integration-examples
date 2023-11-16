@@ -5,13 +5,13 @@ metadata:
   generateName: integration-pipelinerun-
   annotations:
     pipelinesascode.tekton.dev/on-target-branch: '[main]'
-    pipelinesascode.tekton.dev/repo-url: 'https://github.com/redhat-appstudio/build-service'
+    pipelinesascode.tekton.dev/repo-url:
     pipelinesascode.tekton.dev/sha-title: 'Merge pull request #35 from psturc/PLNSRVCE-281-vol2'
     pipelinesascode.tekton.dev/git-auth-secret: pac-gitauth-nthx
     pipelinesascode.tekton.dev/max-keep-runs: '5'
-    pipelinesascode.tekton.dev/sha-url: https://github.com/redhat-appstudio/build-service/commit/f13b881e3404ad3401fa7b533df3f7daddd11b55
+    pipelinesascode.tekton.dev/sha-url:
     pipelinesascode.tekton.dev/on-event: '[push]'
-    pipelinesascode.tekton.dev/installation-id: '23331085'
+    pipelinesascode.tekton.dev/installation-id: '43840620'
   labels:
     pipelines.appstudio.openshift.io/type: "test"
     test.appstudio.openshift.io/test: "component"
@@ -26,9 +26,9 @@ metadata:
     pipelinesascode.tekton.dev/branch: refs-heads-main
     pipelinesascode.tekton.dev/url-org: redhat-appstudio
     pipelinesascode.tekton.dev/original-prname: build-service-on-push
-    pipelinesascode.tekton.dev/url-repository: build-service
-    pipelinesascode.tekton.dev/repository: build-service-pac
-    pipelinesascode.tekton.dev/sha: f13b881e3404ad3401fa7b533df3f7daddd11b55
+    pipelinesascode.tekton.dev/url-repository:
+    pipelinesascode.tekton.dev/repository:
+    pipelinesascode.tekton.dev/sha:
     pipelinesascode.tekton.dev/git-provider: github
 spec:
   pipelineRef:
