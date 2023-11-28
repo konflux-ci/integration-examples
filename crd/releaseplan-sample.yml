@@ -1,0 +1,9 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: ReleasePlan
+metadata:
+  name: example
+  labels:
+    release.appstudio.openshift.io/auto-release: 'true'
+spec:
+  application: application-sample
+  target: none
