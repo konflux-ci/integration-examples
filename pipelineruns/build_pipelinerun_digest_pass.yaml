@@ -27,3 +27,7 @@ spec:
       value: "quay.io/redhat-appstudio/sample-image"
     - name: image-digest
       value: "sha256:98f7c02fc24f9a66a39660ecae95bf0e84660e62281d98d660cb4517ad69c17b"
+    - name: git-url
+      value: "https://github.com/redhat-appstudio/integration-examples"
+    - name: revision
+      value: "65cee801fcffa9c1de0be101cfbdd4577ed0da53"
