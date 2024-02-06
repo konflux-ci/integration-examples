@@ -1,9 +1,17 @@
-apiVersion: appstudio.redhat.com/v1alpha1
+apiVersion: appstudio.redhat.com/v1beta1
 kind: IntegrationTestScenario
 metadata:
   name: example-pass
   namespace: default
 spec:
   application: application-sample
-  bundle: 'quay.io/redhat-appstudio/example-tekton-bundle:integration-pipeline-pass'
-  pipeline: integration-pipeline-pass
+  resolverRef:
+    resolver: git
+    params:
+      - name: url
+        value: https://github.com/redhat-appstudio/integration-examples
+      - name: revision
+        value: main
+      - name: pathInRepo
+        value: pipelines/integration_pipeline_pass.yaml
+
