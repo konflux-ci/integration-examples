@@ -45,6 +45,6 @@ spec:
     - name: output-image
       value: "quay.io/redhat-appstudio/sample-image"
     - name: git-url
-      value: "https://github.com/redhat-appstudio/integration-examples"
+      value: "https://github.com/konflux-ci/integration-examples"
     - name: revision
       value: "65cee801fcffa9c1de0be101cfbdd4577ed0da53"
