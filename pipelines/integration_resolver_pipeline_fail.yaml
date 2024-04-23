@@ -9,7 +9,7 @@ spec:
         resolver: git
         params:
           - name: url
-            value: https://github.com/redhat-appstudio/integration-examples
+            value: https://github.com/konflux-ci/integration-examples
           - name: revision
             value: main
           - name: pathInRepo
@@ -22,7 +22,7 @@ spec:
         resolver: git
         params:
           - name: url
-            value: https://github.com/redhat-appstudio/integration-examples
+            value: https://github.com/konflux-ci/integration-examples
           - name: revision
             value: main
           - name: pathInRepo
@@ -35,7 +35,7 @@ spec:
         resolver: git
         params:
           - name: url
-            value: https://github.com/redhat-appstudio/integration-examples
+            value: https://github.com/konflux-ci/integration-examples
           - name: revision
             value: main
           - name: pathInRepo
