@@ -14,6 +14,7 @@ spec:
       name: NAMESPACE
       default: "default"
       type: string
+  tasks:
     - name: test-task
       taskRef:
         resolver: git
