@@ -11,7 +11,7 @@ spec:
       name: RESULT
       description: Test result to be generated
   steps:
-    - image: quay.io/redhat-appstudio/hacbs-test:stable
+    - image: quay.io/redhat-appstudio/konflux-test:stable
       script: |
         TEST_OUTPUT=$(jq -rc --arg date $(date +%s) --arg RESULT $(params.RESULT) --null-input \
           '{result: $RESULT, timestamp: $date, failures: 0, successes: 0, warnings: 0}')
