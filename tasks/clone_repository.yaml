@@ -16,7 +16,7 @@ spec:
       name: commit
       description: Commit SHA
   steps:
-    - image: quay.io/redhat-appstudio/konflux-test:stable
+    - image: quay.io/redhat-appstudio/konflux-test:latest
       script: |
         echo "$(params.url)" | tee $(results.url.path)
         if [ -z "$(params.commit)" ]; then
