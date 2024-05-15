@@ -9,14 +9,14 @@ spec:
     - description: The precise URL that was fetched by this Task.
       name: url
   params:
-    - default: "git@github.com:redhat-appstudio/integration-service.git"
+    - default: "git@github.com:konflux-ci/integration-service.git"
       name: url
       description: Git URL
     - default: ""
       name: commit
       description: Commit SHA
   steps:
-    - image: quay.io/redhat-appstudio/hacbs-test:stable
+    - image: quay.io/redhat-appstudio/konflux-test:stable
       script: |
         echo "$(params.url)" | tee $(results.url.path)
         if [ -z "$(params.commit)" ]; then

@@ -12,7 +12,7 @@ spec:
       name: NAMESPACE
       description: Namespace of the application under test
   steps:
-    - image: quay.io/redhat-appstudio/hacbs-test:latest
+    - image: quay.io/redhat-appstudio/konflux-test:latest
       env:
         - name: SNAPSHOT
           value: $(params.SNAPSHOT)
