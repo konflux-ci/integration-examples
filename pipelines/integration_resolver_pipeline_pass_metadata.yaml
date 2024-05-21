@@ -1,0 +1,66 @@
+kind: Pipeline
+apiVersion: tekton.dev/v1beta1
+metadata:
+  name: example-pipeline
+spec:
+  params:
+    - description: 'Snapshot of the application'
+      name: SNAPSHOT
+      default: '{"components": [{"name":"test-app", "containerImage": "quay.io/example/repo:latest"}]}'
+      type: string
+  tasks:
+    - name: test-metadata
+      params:
+        - name: SNAPSHOT
+          value: $(params.SNAPSHOT)
+      taskRef:
+        resolver: git
+        params:
+          - name: url
+            value: https://github.com/dirgim/integration-examples
+          - name: revision
+            value: test-metadata
+          - name: pathInRepo
+            value: tasks/test_metadata.yaml
+    - name: task-on-pull-request
+      description: "This task will be executed only for pre-merge events (pull requests, retest etc.)"
+      when:
+        - input: $(tasks.test-metadata.results.test-event-type)
+          operator: notin
+          values: [ "push", "Push" ]
+        - input: $(tasks.test-metadata.results.component-name)
+          operator: notin
+          values: [ "wrong-component" ]
+      taskRef:
+        resolver: git
+        params:
+          - name: url
+            value: https://github.com/konflux-ci/integration-examples
+          - name: revision
+            value: main
+          - name: pathInRepo
+            value: tasks/test_output.yaml
+      params:
+        - name: RESULT
+          value: SUCCESS
+    - name: task-on-push
+      description: "This task will be executed only for push events."
+      when:
+        - input: $(tasks.test-metadata.results.test-event-type)
+          operator: in
+          values: [ "push", "Push" ]
+        - input: $(tasks.test-metadata.results.component-name)
+          operator: notin
+          values: [ "wrong-component" ]
+      taskRef:
+        resolver: git
+        params:
+          - name: url
+            value: https://github.com/konflux-ci/integration-examples
+          - name: revision
+            value: main
+          - name: pathInRepo
+            value: tasks/test_output.yaml
+      params:
+        - name: RESULT
+          value: SUCCESS
