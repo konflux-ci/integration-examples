@@ -1,0 +1,88 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: test-metadata
+spec:
+  results:
+    - name: test-event-type
+      description: "Stores information about the event type that indicates if a job is running for a Pull Request or Push event"
+    - name: pull-request-number
+      description: "Stores information about the pull request number if exists"
+    - name: sender
+      description: "Stores information about the pull request sender if exists"
+    - name: source-git-url
+      description: "Stores information about the source git url for the change. Can be from a fork or from the same repo."
+    - name: source-git-revision
+      description: "Stores information about the source git revision for the change."
+    - name: target-git-url
+      description: "Stores information about the target git repository."
+    - name: target-git-branch
+      description: "Stores information about the target git branch."
+    - name: component-name
+      description: "Stores information about the Konflux component that was built in case of the component-type Snapshot."
+    - name: component-container-image
+      description: "Stores information about the component's container that was built in case of the component-type Snapshot."
+  params:
+    - name: SNAPSHOT
+      description: The JSON string of the Snapshot under test
+  steps:
+    - name: test-metadata
+      image: quay.io/redhat-appstudio/konflux-test:stable
+      workingDir: /workspace
+      env:
+        - name: SNAPSHOT
+          value: $(params.SNAPSHOT)
+        - name: EVENT_TYPE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['pac.test.appstudio.openshift.io/event-type']
+        - name: COMPONENT_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['appstudio.openshift.io/component']
+        - name: PULL_REQUEST_NUMBER
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['pac.test.appstudio.openshift.io/pull-request']
+        - name: TARGET_GIT_URL
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.annotations['pac.test.appstudio.openshift.io/repo-url']
+        - name: TARGET_GIT_BRANCH
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.annotations['pac.test.appstudio.openshift.io/branch']
+        - name: SENDER
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.annotations['pac.test.appstudio.openshift.io/sender']
+      script: |
+        #!/bin/sh
+
+        # Derive additional environment variables from SNAPSHOT
+        SOURCE_GIT_URL=$(jq -r --arg component_name "${COMPONENT_NAME}" '.components[] | select(.name == $component_name) | .source.git.url' <<< "${SNAPSHOT}")
+        SOURCE_GIT_REVISION=$(jq -r --arg component_name "${COMPONENT_NAME}" '.components[] | select(.name == $component_name) | .source.git.revision' <<< "${SNAPSHOT}")
+        COMPONENT_CONTAINER_IMAGE=$(jq -r --arg component_name "${COMPONENT_NAME}" '.components[] | select(.name == $component_name) | .containerImage' <<< "${SNAPSHOT}")
+
+        # Log declared environment variables
+        echo "Integration Test metadata:"
+        echo "  SNAPSHOT: ${SNAPSHOT}"
+        echo "  EVENT_TYPE: ${EVENT_TYPE}"
+        echo "  PULL_REQUEST_NUMBER: ${PULL_REQUEST_NUMBER}"
+        echo "  SOURCE_GIT_URL: ${SOURCE_GIT_URL}"
+        echo "  SOURCE_GIT_REVISION: ${SOURCE_GIT_REVISION}"
+        echo "  TARGET_GIT_REPOSITORY: ${TARGET_GIT_REPOSITORY}"
+        echo "  TARGET_GIT_BRANCH: ${TARGET_GIT_BRANCH}"
+        echo "  COMPONENT_NAME: ${COMPONENT_NAME}"
+        echo "  COMPONENT_CONTAINER_IMAGE: ${COMPONENT_CONTAINER_IMAGE}"
+
+        # Write each environment variable to its respective results:
+        echo -n "${EVENT_TYPE}" > $(results.test-event-type.path)
+        echo -n "${PULL_REQUEST_NUMBER}" > $(results.pull-request-number.path)
+        echo -n "${SENDER}" > $(results.sender.path)
+        echo -n "${SOURCE_GIT_URL}" > $(results.source-git-url.path)
+        echo -n "${SOURCE_GIT_REVISION}" > $(results.source-git-revision.path)
+        echo -n "${TARGET_GIT_URL}" > $(results.target-git-url.path)
+        echo -n "${TARGET_GIT_BRANCH}" > $(results.target-git-branch.path)
+        echo -n "${COMPONENT_NAME}" > $(results.component-name.path)
+        echo -n "${COMPONENT_CONTAINER_IMAGE}" > $(results.component-container-image.path)

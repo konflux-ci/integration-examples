@@ -1,0 +1,169 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  annotations:
+    build.appstudio.openshift.io/repo: https://github.com/redhat-appstudio/integration-service?rev=2dabb6be71fbb8e0c9e73813e5777a52fdba6a6e
+    build.appstudio.redhat.com/commit_sha: 2dabb6be71fbb8e0c9e73813e5777a52fdba6a6e
+    build.appstudio.redhat.com/pull_request_number: "651"
+    build.appstudio.redhat.com/target_branch: main
+    chains.tekton.dev/signed: "true"
+    pac.test.appstudio.openshift.io/branch: main
+    pac.test.appstudio.openshift.io/check-run-id: "23878784989"
+    pac.test.appstudio.openshift.io/controller-info: '{"name":"default","configmap":"pipelines-as-code","secret":"pipelines-as-code-secret"}'
+    pac.test.appstudio.openshift.io/event-type: pull_request
+    pac.test.appstudio.openshift.io/git-auth-secret: pac-gitauth-erse
+    pac.test.appstudio.openshift.io/git-provider: github
+    pac.test.appstudio.openshift.io/installation-id: "34482443"
+    pac.test.appstudio.openshift.io/log-url: https://console.redhat.com/preview/application-pipeline/ns/rhtap-integration-tenant/pipelinerun/integration-service-on-pull-request-p2n2s
+    pac.test.appstudio.openshift.io/max-keep-runs: "3"
+    pac.test.appstudio.openshift.io/on-cel-expression: event == "pull_request" &&
+      target_branch == "main"
+    pac.test.appstudio.openshift.io/original-prname: integration-service-on-pull-request
+    pac.test.appstudio.openshift.io/pull-request: "651"
+    pac.test.appstudio.openshift.io/repo-url: https://github.com/redhat-appstudio/integration-service
+    pac.test.appstudio.openshift.io/repository: integration-service
+    pac.test.appstudio.openshift.io/sender: kasemAlem
+    pac.test.appstudio.openshift.io/sha: 2dabb6be71fbb8e0c9e73813e5777a52fdba6a6e
+    pac.test.appstudio.openshift.io/sha-title: 'feat(STONEINTG-843): add consoleURL
+          plr to github checkrun&commitstatus'
+    pac.test.appstudio.openshift.io/sha-url: https://github.com/redhat-appstudio/integration-service/commit/2dabb6be71fbb8e0c9e73813e5777a52fdba6a6e
+    pac.test.appstudio.openshift.io/state: started
+    pac.test.appstudio.openshift.io/url-org: redhat-appstudio
+    pac.test.appstudio.openshift.io/url-repository: integration-service
+    results.tekton.dev/childReadyForDeletion: "true"
+    results.tekton.dev/log: rhtap-integration-tenant/results/f38e16e3-6451-41a5-8a3b-20a98984dd18/logs/9eaea68b-2557-34d1-9732-9ed6757ce3a8
+    results.tekton.dev/record: rhtap-integration-tenant/results/f38e16e3-6451-41a5-8a3b-20a98984dd18/records/f38e16e3-6451-41a5-8a3b-20a98984dd18
+    results.tekton.dev/result: rhtap-integration-tenant/results/f38e16e3-6451-41a5-8a3b-20a98984dd18
+    test.appstudio.openshift.io/kind: enterprise-contract
+  creationTimestamp: "2024-04-16T13:37:31Z"
+  finalizers:
+    - test.appstudio.openshift.io/pipelinerun
+    - chains.tekton.dev/pipelinerun
+  generateName: integration-service-qfp9x-
+  generation: 1
+  labels:
+    appstudio.openshift.io/application: integration-service
+    appstudio.openshift.io/component: integration-service
+    appstudio.openshift.io/snapshot: integration-service-qfp9x
+    build.appstudio.redhat.com/pipeline: enterprise-contract
+    pac.test.appstudio.openshift.io/branch: main
+    pac.test.appstudio.openshift.io/check-run-id: "23878784989"
+    pac.test.appstudio.openshift.io/event-type: pull_request
+    pac.test.appstudio.openshift.io/git-provider: github
+    pac.test.appstudio.openshift.io/original-prname: integration-service-on-pull-request
+    pac.test.appstudio.openshift.io/pull-request: "651"
+    pac.test.appstudio.openshift.io/repository: integration-service
+    pac.test.appstudio.openshift.io/sender: kasemAlem
+    pac.test.appstudio.openshift.io/sha: 2dabb6be71fbb8e0c9e73813e5777a52fdba6a6e
+    pac.test.appstudio.openshift.io/state: started
+    pac.test.appstudio.openshift.io/url-org: redhat-appstudio
+    pac.test.appstudio.openshift.io/url-repository: integration-service
+    pipelines.appstudio.openshift.io/type: test
+    tekton.dev/pipeline: integration-service-qfp9x-6lrdj
+    test.appstudio.openshift.io/scenario: integration-service-enterprise-contract
+  name: integration-service-qfp9x-6lrdj
+  namespace: rhtap-integration-tenant
+  ownerReferences:
+    - apiVersion: appstudio.redhat.com/v1alpha1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Snapshot
+      name: integration-service-qfp9x
+      uid: ee8cfce5-5302-4656-bfb5-d211baaaffd5
+  resourceVersion: "1655578920"
+  uid: f38e16e3-6451-41a5-8a3b-20a98984dd18
+spec:
+  params:
+    - name: SNAPSHOT
+      value: '{"application":"integration-service","components":[{"name":"integration-service","containerImage":"quay.io/redhat-user-workloads/rhtap-integration-tenant/integration-service/integration-service@sha256:51996e78347aed162fb3b497c5a396be25c2fe0d236f453315d9cc7b3d7407d8","source":{"git":{"url":"https://github.com/kasemAlem/integration-service","revision":"2dabb6be71fbb8e0c9e73813e5777a52fdba6a6e"}}}],"artifacts":{}}'
+  pipelineRef:
+    params:
+      - name: url
+        value: https://github.com/redhat-appstudio/build-definitions
+      - name: revision
+        value: main
+      - name: pathInRepo
+        value: pipelines/enterprise-contract-redhat-no-hermetic.yaml
+    resolver: git
+  serviceAccountName: appstudio-pipeline
+  timeouts:
+    pipeline: 1h0m0s
+status:
+  childReferences:
+    - apiVersion: tekton.dev/v1
+      kind: TaskRun
+      name: integration-service-qfp9x-6lrdj-verify
+      pipelineTaskName: verify
+  completionTime: "2024-04-16T13:38:35Z"
+  conditions:
+    - lastTransitionTime: "2024-04-16T13:38:35Z"
+      message: 'Tasks Completed: 1 (Failed: 0, Cancelled 0), Skipped: 0'
+      reason: Succeeded
+      status: "True"
+      type: Succeeded
+  pipelineResults:
+    - name: TEST_OUTPUT
+      value: |
+        {"timestamp":"1713274713","namespace":"","successes":82,"failures":0,"warnings":6,"result":"WARNING"}
+  pipelineSpec:
+    params:
+      - description: |
+          Spec section of an ApplicationSnapshot resource. Not all fields of the
+          resource are required. A minimal example:
+            {
+              "components": [
+                {
+                  "containerImage": "quay.io/example/repo:latest"
+                }
+              ]
+            }
+          Each "containerImage" in the "components" array is validated.
+        name: SNAPSHOT
+        type: string
+      - default: enterprise-contract-service/redhat-no-hermetic
+        description: |
+          Name of the policy configuration (EnterpriseContractConfiguration
+          object) to use. `namespace/name` or `name` syntax supported. If
+          namespace is omitted the namespace where the task runs is used.
+        name: POLICY_CONFIGURATION
+        type: string
+      - default: ""
+        description: |
+          Path to a directory containing SSL certs to be used when communicating
+          with external services. This is useful when using the integrated registry
+          and a local instance of Rekor on a development cluster which may use
+          certificates issued by a not-commonly trusted root CA. In such cases,
+          "/var/run/secrets/kubernetes.io/serviceaccount" is a good value. Multiple
+          paths can be provided by using the ":" separator.
+        name: SSL_CERT_DIR
+        type: string
+    results:
+      - description: ""
+        name: TEST_OUTPUT
+        value: $(tasks.verify.results.TEST_OUTPUT)
+    tasks:
+      - name: verify
+        params:
+          - name: POLICY_CONFIGURATION
+            value: enterprise-contract-service/redhat-no-hermetic
+          - name: IMAGES
+            value: '{"application":"integration-service","components":[{"name":"integration-service","containerImage":"quay.io/redhat-user-workloads/rhtap-integration-tenant/integration-service/integration-service@sha256:51996e78347aed162fb3b497c5a396be25c2fe0d236f453315d9cc7b3d7407d8","source":{"git":{"url":"https://github.com/kasemAlem/integration-service","revision":"2dabb6be71fbb8e0c9e73813e5777a52fdba6a6e"}}}],"artifacts":{}}'
+          - name: SSL_CERT_DIR
+            value: ""
+          - name: STRICT
+            value: "true"
+          - name: PUBLIC_KEY
+            value: k8s://openshift-pipelines/public-key
+          - name: IGNORE_REKOR
+            value: "true"
+        taskRef:
+          kind: Task
+          params:
+            - name: bundle
+              value: quay.io/enterprise-contract/ec-task-bundle:snapshot@sha256:473dc02c4b35b58c8d45461daa7395a6e7fff913ea3a7dc19db05735a99f87b0
+            - name: name
+              value: verify-enterprise-contract
+            - name: kind
+              value: task
+          resolver: bundles
+  startTime: "2024-04-16T13:37:31Z"
