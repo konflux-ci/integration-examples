@@ -104,7 +104,7 @@ status:
   pipelineResults:
     - name: TEST_OUTPUT
       value: |
-        {"timestamp":"1713274713","namespace":"","successes":82,"failures":0,"warnings":6,"result":"WARNING"}
+        {"timestamp":"2024-05-22T06:42:21+00:00","namespace":"","successes":82,"failures":0,"warnings":6,"result":"WARNING"}
   pipelineSpec:
     params:
       - description: |
