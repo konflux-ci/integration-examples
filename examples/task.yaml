@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: test-app
@@ -8,16 +8,10 @@ spec:
   params:
     - name: SNAPSHOT
       description: The json string of the Snapshot under test 
-    - default: 'default'
-      name: NAMESPACE
-      description: Namespace of the application under test
   steps:
     - image: quay.io/redhat-appstudio/konflux-test:latest
       env:
         - name: SNAPSHOT
           value: $(params.SNAPSHOT)
-        - name: NAMESPACE
-          value: $(params.NAMESPACE)
       script: |
         echo -e "${SNAPSHOT}"
-        echo -e "${NAMESPACE}"
