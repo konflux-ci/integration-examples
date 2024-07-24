@@ -1,5 +1,5 @@
 kind: Pipeline
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 metadata:
   name: example-pipeline
 spec:
