@@ -18,6 +18,8 @@ spec:
       description: "Stores information about the target git repository."
     - name: target-git-branch
       description: "Stores information about the target git branch."
+    - name: application-name
+      description: "Stores information about the Konflux application that the Snapshot was created for."
     - name: component-name
       description: "Stores information about the Konflux component that was built in case of the component-type Snapshot."
     - name: component-container-image
@@ -36,6 +38,10 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.labels['pac.test.appstudio.openshift.io/event-type']
+        - name: APPLICATION_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['appstudio.openshift.io/application']
         - name: COMPONENT_NAME
           valueFrom:
             fieldRef:
@@ -73,6 +79,7 @@ spec:
         echo "  SOURCE_GIT_REVISION: ${SOURCE_GIT_REVISION}"
         echo "  TARGET_GIT_REPOSITORY: ${TARGET_GIT_REPOSITORY}"
         echo "  TARGET_GIT_BRANCH: ${TARGET_GIT_BRANCH}"
+        echo "  APPLICATION_NAME: ${APPLICATION_NAME}"
         echo "  COMPONENT_NAME: ${COMPONENT_NAME}"
         echo "  COMPONENT_CONTAINER_IMAGE: ${COMPONENT_CONTAINER_IMAGE}"
 
@@ -84,5 +91,6 @@ spec:
         echo -n "${SOURCE_GIT_REVISION}" > $(results.source-git-revision.path)
         echo -n "${TARGET_GIT_URL}" > $(results.target-git-url.path)
         echo -n "${TARGET_GIT_BRANCH}" > $(results.target-git-branch.path)
+        echo -n "${APPLICATION_NAME}" > $(results.application-name.path)
         echo -n "${COMPONENT_NAME}" > $(results.component-name.path)
         echo -n "${COMPONENT_CONTAINER_IMAGE}" > $(results.component-container-image.path)
