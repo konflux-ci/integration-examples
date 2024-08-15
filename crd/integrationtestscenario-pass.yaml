@@ -5,6 +5,9 @@ metadata:
   namespace: default
 spec:
   application: application-sample
+  contexts:
+    - description: Application testing
+      name: application
   resolverRef:
     resolver: git
     params:
