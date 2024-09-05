@@ -16,7 +16,7 @@ spec:
       name: image-digest
       description: Image Digest (optional)
   steps:
-    - image: quay.io/redhat-appstudio/konflux-test:latest
+    - image: quay.io/konflux-ci/konflux-test:latest
       script: |
         echo -n "$(params.image-url)" | tee $(results.IMAGE_URL.path)
         if [ -z "$(params.image-digest)" ]; then
