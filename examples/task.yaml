@@ -9,7 +9,7 @@ spec:
     - name: SNAPSHOT
       description: The json string of the Snapshot under test 
   steps:
-    - image: quay.io/redhat-appstudio/konflux-test:latest
+    - image: quay.io/konflux-ci/konflux-test:latest
       env:
         - name: SNAPSHOT
           value: $(params.SNAPSHOT)
