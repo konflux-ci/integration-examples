@@ -6,6 +6,10 @@ spec:
   params:
     - name: SNAPSHOT
       description: The JSON string of the Snapshot under test
+    - name: COMPONENTS_TO_CHECK
+      description: A space-separated list of components that will be considered for the check, other components will be ignored
+      default: ""
+      type: string
   steps:
     - name: test-snapshot-component
       image: quay.io/konflux-ci/konflux-test:stable
@@ -13,6 +17,8 @@ spec:
       env:
         - name: SNAPSHOT
           value: $(params.SNAPSHOT)
+        - name: COMPONENTS_TO_CHECK
+          value: $(params.COMPONENTS_TO_CHECK)
         - name: SNAPSHOT_URL
           valueFrom:
             fieldRef:
@@ -22,23 +28,33 @@ spec:
             fieldRef:
               fieldPath: metadata.annotations['pac.test.appstudio.openshift.io/sha']
       script: |
-        #!/bin/sh
+        #!/bin/bash
         set -e
-        components=$(jq -c '.components[]' <<< "${SNAPSHOT}")
+        snapshotComponents=$(jq -c '.components[]' <<< "${SNAPSHOT}")
         snapshotUrlUrlWithoutSuffix=$(echo $SNAPSHOT_URL | sed 's/\.git$//')
-        while read components
+        echo "Snapshot URL: ${snapshotUrlUrlWithoutSuffix} and SHA: ${SNAPSHOT_SHA}"
+        echo "Components that will be checked against the Snapshot: ${COMPONENTS_TO_CHECK}"
+        
+        while read componentEntry
         do
           # Variables
-          componentUrl=$(echo "$components" | jq -r '.source.git.url')
+          componentName=$(echo "${componentEntry}" | jq -r '.name')
+          componentUrl=$(echo "${componentEntry}" | jq -r '.source.git.url')
           componentUrlWithoutSuffix=$(echo $componentUrl | sed 's/\.git$//')
-          name=$(echo "$components" | jq -r '.name')
-          componentSha=$(echo "$components" | jq -r '.source.git.revision')
-            # Check if component git url equals to snapshot git url, if yes check if the snapshot SHA equals to component SHA
-            if [[ $componentUrlWithoutSuffix == $snapshotUrlUrlWithoutSuffix ]]; then
-                if [[ $componentSha != $SNAPSHOT_SHA ]]; then
-                echo "FAIL: Component $name has different SHA: $componentSha than the snapshot, SHA: $SNAPSHOT_SHA."
-                exit 1
-                fi
-            fi
-          echo "SUCCESS: Component $name matches snapshot SHA."
-        done < <(echo "$components")
+          componentSha=$(echo "${componentEntry}" | jq -r '.source.git.revision')
+          
+          if [[ $(echo "${COMPONENTS_TO_CHECK}" | wc -w) -gt 0 && -z $(echo "${COMPONENTS_TO_CHECK}" | grep -w "${componentName}" ) ]]; then
+            echo "Skipping component: ${componentName} since it isn't in the list of components to be checked"
+            continue
+          fi
+          echo "Checking component: ${componentName} with URL: ${componentUrlWithoutSuffix} and SHA: ${componentSha}"
+        
+          # Check if component git url equals to snapshot git url, if yes check if the snapshot SHA equals to component SHA
+          if [[ ${componentUrlWithoutSuffix} == ${snapshotUrlUrlWithoutSuffix} ]]; then
+              if [[ ${componentSha} != ${SNAPSHOT_SHA} ]]; then
+              echo "FAIL: Component: ${componentName} has different SHA: $componentSha than the snapshot, SHA: $SNAPSHOT_SHA."
+              exit 1
+              fi
+          fi
+          echo "SUCCESS: Component ${componentName} matches snapshot SHA."
+        done < <(echo "$snapshotComponents")
