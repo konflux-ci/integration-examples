@@ -22,19 +22,15 @@ spec:
         resolver: bundles
         params:
           - name: bundle
-            value: quay.io/redhat-appstudio-tekton-catalog/task-provision-env-with-ephemeral-namespace:0.1-6fa633c8d41e1f885951bfc9d74a5ee9499af79e
+            value: quay.io/redhat-appstudio-tekton-catalog/task-eaas-provision-space:0.1@sha256:47cc4f5adfc2d0d5c6670a9c13f350e2dcd41bae3275497910e2fec900168c60
           - name: name
-            value: provision-env-with-ephemeral-namespace
+            value: eaas-provision-space
           - name: kind
             value: task
       params:
-        - name: RESULT
-          value: SUCCESS
-        - name: KONFLUXNAMESPACE
-          value: $(context.pipelineRun.namespace)
-        - name: PIPELINERUN_NAME
+        - name: ownerName
           value: $(context.pipelineRun.name)
-        - name: PIPELINERUN_UID
+        - name: ownerUid
           value: $(context.pipelineRun.uid)
     - name: task-success-2
       taskRef:
