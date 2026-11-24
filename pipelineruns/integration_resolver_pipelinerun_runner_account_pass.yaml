@@ -1,0 +1,17 @@
+---
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  generateName: integration-resolver-pipelinerun-runner-account-
+spec:
+  pipelineRef:
+    resolver: git
+    params:
+    - name: url
+      value: https://github.com/konflux-ci/integration-examples.git
+    - name: revision
+      value: main
+    - name: pathInRepo
+      value: pipelines/integration_resolver_pipeline_pass.yaml
+  taskRunTemplate:
+    serviceAccountName: konflux-integration-runner
